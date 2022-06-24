@@ -26,7 +26,7 @@ public class RoleAdminServiceImpl implements RoleAdminService {
 		List<UserEntity> users = new ArrayList<UserEntity>();
 		List<UserEntity> dbUsers = this.userRepo.findAll();
 		dbUsers.forEach(user -> {
-			if (user.getRole().getName().compareToIgnoreCase(role) == 0) {
+			if (user.getRole().getName().equalsIgnoreCase(role)) {
 				users.add(user);
 			}
 		});

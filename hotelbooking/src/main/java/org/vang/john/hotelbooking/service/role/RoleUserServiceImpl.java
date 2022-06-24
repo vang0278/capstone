@@ -19,11 +19,17 @@ public class RoleUserServiceImpl implements RoleUserService {
 
 	@Override
 	public UserEntity getUser(String userEmail) {
+		String role = "USER"; // access to this role
+
 		Optional<UserEntity> dbUser = this.userRepository.findByEmail(userEmail);
 		if (dbUser.isEmpty()) {
 			return null;
 		}
-		return dbUser.get();
+		if (dbUser.get().getRole().getName().equalsIgnoreCase(role)) {
+			return dbUser.get();
+		}
+
+		return null;
 	}
 
 	@Override
