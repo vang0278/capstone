@@ -57,22 +57,31 @@ public class UserServiceImpl implements UserService {
 				"Pink", "Orange", "Brown", //
 				"Black", "White", "Gold", //
 				"Silver" };
-		
-		int index = (int)(Math.random() * wordList.length);
+
+		int index = (int) (Math.random() * wordList.length);
 		String word = wordList[index];
-		
-		Optional<UserEntity> dbUser = this.userRepo.findByEmail(email);
-		
-		if(dbUser.isEmpty()) {
+
+		if (!this.changePassword(email, word)) {
 			return null;
+		}
+
+		return word;
+	}
+
+	@Override
+	public boolean changePassword(String email, String newPassword) {
+		Optional<UserEntity> dbUser = this.userRepo.findByEmail(email);
+
+		if (dbUser.isEmpty()) {
+			return false;
 		}
 
 		UserEntity user = dbUser.get();
 
-		user.setPassword(this.passwordEncoder.encode(word));
+		user.setPassword(this.passwordEncoder.encode(newPassword));
 		this.userRepo.save(user);
-		
-		return word;
+
+		return true;
 	}
 
 	@Override

@@ -18,52 +18,58 @@
 	<br>
 	<h1>Admin Panel</h1>
 	<div th:if="${param.success}">
-		<div th:if="${success_msg}" class="alert alert-info" th:utext="${success_msg}">Success</div>
+		<div th:if="${success_msg}" class="alert alert-info"
+			th:utext="${success_msg}">Success</div>
 	</div>
 	<div th:if="${param.error}">
-		<div th:unless="${error_msg}" class="alert alert-danger">Error creating employee</div>
-		<div th:if="${error_msg}" class="alert alert-danger" th:utext="${error_msg}">Error creating employee</div>
+		<div th:unless="${error_msg}" class="alert alert-danger">Error
+			creating employee</div>
+		<div th:if="${error_msg}" class="alert alert-danger"
+			th:utext="${error_msg}">Error creating employee</div>
 	</div>
-	<form th:action="@{/admin/createEmployee}" method=post th:object="${employee}">
 
-	<table class="table table-striped table-hover ">
+	<form th:action="@{/admin/createEmployee}" method=post
+		th:object="${employee}">
 
-		<tr>
-			<td><button type="submit" class="btn btn-primary bi bi-plus-square" /></td>
+		<table class="table table-striped table-hover ">
 
-			<td>
-				<div class="form-floating mb-3">
-					<input class="form-control" id="lastName" th:field="*{lastName}"
-						type="text" placeholder="lastName" required />
-					<label for="lastName">Last Name</label>
-				</div>
-			</td>
-			<td>
-				<div class="form-floating mb-3">
-					<input class="form-control" id="firstName" th:field="*{firstName}"
-						type="text" placeholder="firstName" required />
-					<label for="firstName">First Name</label>
-				</div>
-			</td>
-			<td>
-				<div class="form-floating mb-3">
-					<input class="form-control" id="email" th:field="*{email}" type="email"
-						placeholder="email" required /> <label
-						for="email">Email</label>
-				</div>
-			</td>
-			<td>
-				<div class="form-floating mb-3">
-					<input class="form-control" id="password" th:field="*{password}"
-						type="password" placeholder="password"
-						required /> <label for="password">Password</label>
-				</div>
-			</td>
-			<td></td>
-		</tr>
+			<tr>
+				<td><button type="submit"
+						class="btn btn-primary bi bi-plus-square" /></td>
+
+				<td>
+					<div class="form-floating mb-3">
+						<input class="form-control" id="lastName" th:field="*{lastName}"
+							type="text" placeholder="lastName" required /> <label
+							for="lastName">Last Name</label>
+					</div>
+				</td>
+				<td>
+					<div class="form-floating mb-3">
+						<input class="form-control" id="firstName" th:field="*{firstName}"
+							type="text" placeholder="firstName" required /> <label
+							for="firstName">First Name</label>
+					</div>
+				</td>
+				<td>
+					<div class="form-floating mb-3">
+						<input class="form-control" id="email" th:field="*{email}"
+							type="email" placeholder="email" required /> <label for="email">Email</label>
+					</div>
+				</td>
+				<td>
+					<div class="form-floating mb-3">
+						<input class="form-control" id="password" th:field="*{password}"
+							type="password" placeholder="password" required /> <label
+							for="password">Password</label>
+					</div>
+				</td>
+				<td></td>
+			</tr>
+
+		</table>
+
 	</form>
-
-	</table>
 
 	<table class="table table-striped table-hover table-sm table-info ">
 		<thead>
@@ -79,13 +85,15 @@
 		</thead>
 		<tbody>
 			<tr th:each="user: ${employees}">
-				<td><a class="btn btn-primary" th:href="@{/admin/resetEmployeePassword(id=${user.id})}" >reset&nbsp;password</a></td>
+				<td><a class="btn btn-primary"
+					th:href="@{/admin/resetEmployeePassword(id=${user.id})}">reset&nbsp;password</a></td>
 				<td th:text="${user.id}" />
 				<td th:text="${user.role.name}" />
 				<td th:text="${user.lastName}" />
 				<td th:text="${user.firstName}" />
 				<td th:text="${user.email}" />
-				<td><a class="btn btn-primary bi bi-trash" th:href="@{/admin/deleteEmployee(id=${user.id})}" /></td>
+				<td><a class="btn btn-primary bi bi-trash"
+					th:href="@{/admin/deleteEmployee(id=${user.id})}" /></td>
 			</tr>
 		</tbody>
 

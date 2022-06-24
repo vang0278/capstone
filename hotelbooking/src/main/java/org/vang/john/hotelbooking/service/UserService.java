@@ -12,6 +12,8 @@ public interface UserService extends UserDetailsService {
 
 	String resetPassword(String email);
 
+	boolean changePassword(String email, String newPassword);
+
 	UserEntity saveAsAdmin(UserEntity user);
 
 	UserEntity saveAsEmployee(UserEntity user);
