@@ -1,9 +1,98 @@
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org">
-    <head>
-        <title>Admin</title>
-    </head>
-    <body>
-        
-    </body>
+<head>
+<title>Admin</title>
+</head>
+<!-- 
+        create new Employees-reset their password
+        set active/inactive
+
+        create/add new sites and buildings
+     -->
+<link th:replace="fragments/parts.html :: bootstrap_css">
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+<body onload="navbarActivate('nav_user_panel')">
+	<div th:replace="fragments/parts.html :: navbar"></div>
+	<br>
+	<h1>Admin Panel</h1>
+	<div th:if="${param.success}">
+		<div th:if="${success_msg}" class="alert alert-info" th:utext="${success_msg}">Success</div>
+	</div>
+	<div th:if="${param.error}">
+		<div th:unless="${error_msg}" class="alert alert-danger">Error creating employee</div>
+		<div th:if="${error_msg}" class="alert alert-danger" th:utext="${error_msg}">Error creating employee</div>
+	</div>
+	<form th:action="@{/admin/createEmployee}" method=post th:object="${employee}">
+
+	<table class="table table-striped table-hover ">
+
+		<tr>
+			<td><button type="submit" class="btn btn-primary bi bi-plus-square" /></td>
+
+			<td>
+				<div class="form-floating mb-3">
+					<input class="form-control" id="lastName" th:field="*{lastName}"
+						type="text" placeholder="lastName" required />
+					<label for="lastName">Last Name</label>
+				</div>
+			</td>
+			<td>
+				<div class="form-floating mb-3">
+					<input class="form-control" id="firstName" th:field="*{firstName}"
+						type="text" placeholder="firstName" required />
+					<label for="firstName">First Name</label>
+				</div>
+			</td>
+			<td>
+				<div class="form-floating mb-3">
+					<input class="form-control" id="email" th:field="*{email}" type="email"
+						placeholder="email" required /> <label
+						for="email">Email</label>
+				</div>
+			</td>
+			<td>
+				<div class="form-floating mb-3">
+					<input class="form-control" id="password" th:field="*{password}"
+						type="password" placeholder="password"
+						required /> <label for="password">Password</label>
+				</div>
+			</td>
+			<td></td>
+		</tr>
+	</form>
+
+	</table>
+
+	<table class="table table-striped table-hover table-sm table-info ">
+		<thead>
+			<tr>
+				<th scope="col"></th>
+				<th scope="col">Id</th>
+				<th scope="col">User</th>
+				<th scope="col">Last Name</th>
+				<th scope="col">First Name</th>
+				<th scope="col">Email</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="user: ${employees}">
+				<td><a class="btn btn-primary" th:href="@{/admin/resetEmployeePassword(id=${user.id})}" >reset&nbsp;password</a></td>
+				<td th:text="${user.id}" />
+				<td th:text="${user.role.name}" />
+				<td th:text="${user.lastName}" />
+				<td th:text="${user.firstName}" />
+				<td th:text="${user.email}" />
+				<td><a class="btn btn-primary bi bi-trash" th:href="@{/admin/deleteEmployee(id=${user.id})}" /></td>
+			</tr>
+		</tbody>
+
+	</table>
+
+	<script th:replace="fragments/parts.html :: bootstrap_script"></script>
+	<script src="js/script.js" defer></script>
+
+</body>
 </html>

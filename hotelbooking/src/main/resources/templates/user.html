@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org">
-    <head>
-        <title>User</title>
-    </head>
-    <body>
-        
-    </body>
+<head>
+<title>User</title>
+</head>
+<link th:replace="fragments/parts.html :: bootstrap_css">
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+<body onload="navbarActivate('nav_user_panel')">
+	<div th:replace="fragments/parts.html :: navbar"></div>
+
+	<script th:replace="fragments/parts.html :: bootstrap_script"></script>
+	<script src="js/script.js" defer></script>
+
+</body>
 </html>
