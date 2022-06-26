@@ -1,7 +1,5 @@
 package org.vang.john.hotelbooking.dto;
 
-import javax.persistence.Column;
-
 public class UpdateUserDTO {
 
 	private String firstName;

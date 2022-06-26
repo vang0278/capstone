@@ -12,7 +12,7 @@ import org.vang.john.hotelbooking.entity.UserEntity;
 @Repository
 public interface ReservationRepository extends JpaRepository<ReservationEntity, UUID> {
 
-	List<ReservationEntity> findByIdContains(String txt); // IgnoreCase?
+	List<ReservationEntity> findByIdContains(String txt);
 
 //	boolean existsByActiveAndRoom(Boolean isActive, RoomEntity room);
 

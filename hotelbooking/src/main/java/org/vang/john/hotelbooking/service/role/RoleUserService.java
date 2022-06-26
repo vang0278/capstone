@@ -10,6 +10,4 @@ public interface RoleUserService {
 	
 	boolean changePassword(String userEmail, String password, String confirmPassword);
 	
-	//get reservations
-
 }

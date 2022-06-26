@@ -18,20 +18,20 @@ public class UserEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@NotEmpty
+	@NotEmpty(message = "Please enter your first name.")
 	@Column(nullable = false, length = 50)
 	private String firstName;
 
-	@NotEmpty
+	@NotEmpty(message = "Please enter your last name.")
 	@Column(nullable = false, length = 50)
 	private String lastName;
 
-	@Email
-	@NotEmpty
+	@Email(message = "Please enter your email in the correct format.")
+	@NotEmpty(message = "Please enter your email.")
 	@Column(unique = true, nullable = false, length = 50)
 	private String email;
 
-	@NotEmpty
+	@NotEmpty(message = "Please enter a password.")
 	@Column(nullable = false)
 	private String password;
 

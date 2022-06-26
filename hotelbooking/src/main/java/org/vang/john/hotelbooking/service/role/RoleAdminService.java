@@ -8,8 +8,6 @@ public interface RoleAdminService {
 
 	List<UserEntity> findAllEmployees();
 
-//	boolean updateEmployee(Long id, UserEntity employee);
-
 	boolean removeEmployee(Long id);
 	
 	String resetEmployeePassword(Long id);

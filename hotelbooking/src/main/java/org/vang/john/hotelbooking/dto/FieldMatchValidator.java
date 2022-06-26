@@ -24,7 +24,7 @@ public class FieldMatchValidator implements ConstraintValidator<FieldMatch, Obje
 					|| firstObject != null && firstObject.equals(secondObject);
 		} catch (final Exception ignore) {
 		}
-		return true;// ?? shouldn't default be false
+		return false;// ?? shouldn't default be false
 	}
 
 }

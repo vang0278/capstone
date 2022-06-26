@@ -7,15 +7,15 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 @FieldMatch.List({
-		@FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match"),
-		@FieldMatch(first = "email", second = "confirmEmail", message = "The email fields must match") })
+		@FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match."),
+		@FieldMatch(first = "email", second = "confirmEmail", message = "The email fields must match.") })
 public class UserDTO extends UserEntity{
 	
-	@Email
-	@NotEmpty
+	@Email(message = "Please enter your email in the correct format.")
+	@NotEmpty(message = "Please confirm your email.")
 	private String confirmEmail;
 
-	@NotEmpty
+	@NotEmpty(message = "Please confirm your password.")
 	private String confirmPassword;
 		
 	public String getConfirmEmail() {
