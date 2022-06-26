@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +15,6 @@ import org.vang.john.hotelbooking.entity.BuildingEntity;
 import org.vang.john.hotelbooking.entity.RoomEntity;
 import org.vang.john.hotelbooking.exception.UnknownUserRoleException;
 import org.vang.john.hotelbooking.service.BuildingService;
-import org.vang.john.hotelbooking.service.ReservationService;
 
 @Controller
 public class MainController {
