@@ -16,6 +16,7 @@ import org.vang.john.hotelbooking.entity.BuildingEntity;
 import org.vang.john.hotelbooking.entity.RoomEntity;
 import org.vang.john.hotelbooking.exception.UnknownUserRoleException;
 import org.vang.john.hotelbooking.service.BuildingService;
+import org.vang.john.hotelbooking.service.ReservationService;
 
 @Controller
 public class MainController {
@@ -37,7 +38,8 @@ public class MainController {
 	}
 
 	@PostMapping("/")
-	public String checkAvailability(Model model, @ModelAttribute("search") SearchBuildingDTO search) {
+	public String checkAvailability(Model model, // 
+			@ModelAttribute("search") SearchBuildingDTO search) {
 		boolean _smoking = search.isYesSmoking();
 		long _occupancy = search.isDoubleOccupancy() ? 2 : 1;
 		boolean _anySmoking = search.isAnySmoking();
@@ -45,45 +47,60 @@ public class MainController {
 
 		List<BuildingEntity> buildings = this.buildingService.findAllBuildingsWith(_smoking, _occupancy, //
 				_anySmoking, _anyOccupancy); //
-		
+
 		model.addAttribute("buildings", buildings);
-		
+
 		return "index";
 	}
 
 	@GetMapping("/show")
-	public String showAvailability(Model model, @ModelAttribute("search") SearchBuildingDTO search, @ModelAttribute("id") Long id) {
+	public String showAvailability(Authentication auth, //
+			Model model, //
+			@ModelAttribute("search") SearchBuildingDTO search, //
+			@ModelAttribute("id") Long id) {
+		// try to insert signed in user, into model
+		try {
+			String role = auth.getAuthorities().iterator().next().toString(); // get the first/only role
+			if (role.equalsIgnoreCase("role_USER")) {
+				System.out.println("ADDING to model. " + role + " detected for: /show");
+				model.addAttribute("ROLE_USER", role);
+			} else {
+				System.out.println(role + " detected for: /show");
+			}
+		} catch (Exception e) {
+			System.out.println("no user detected for: /show");
+		}
+
 		boolean _smoking = search.isYesSmoking();
 		long _occupancy = search.isDoubleOccupancy() ? 2 : 1;
 		boolean _anySmoking = search.isAnySmoking();
 		boolean _anyOccupancy = search.isAnyOccupancy();
 
-		//re-list buildings
+		// re-list buildings
 		List<BuildingEntity> buildings = this.buildingService.findAllBuildingsWith(_smoking, _occupancy, //
 				_anySmoking, _anyOccupancy); //
-		
+
 		model.addAttribute("buildings", buildings);
 
 		Optional<BuildingEntity> dbBuilding = this.buildingService.findById(id);
-		
-		if(dbBuilding.isEmpty()) {
+
+		if (dbBuilding.isEmpty()) {
 			return "index"; //
 		}
-		
-		//list rooms for the building
+
+		// list rooms for the building
 		List<RoomEntity> rooms = this.buildingService.findAllRoomsWith(_smoking, _occupancy, //
 				_anySmoking, _anyOccupancy, //
 				id); //
-		
+
 		model.addAttribute("viewBuilding", dbBuilding.get());
 		model.addAttribute("rooms", rooms);
-	
+
 		return "index";
 	}
 
 	@GetMapping("/userpanel")
-	public String determineUserPanel() throws UnknownUserRoleException {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	public String determineUserPanel(Authentication auth) throws UnknownUserRoleException {
 		String role = "testing";
 
 		// user should already be signed in

@@ -1,5 +1,7 @@
 package org.vang.john.hotelbooking.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.vang.john.hotelbooking.entity.RoomEntity;
@@ -31,4 +33,13 @@ public class RoomServiceImpl implements RoomService {
 		return this.roomRepo.save(room);
 	}
 
+	@Override
+	public RoomEntity findRoom(Long id) {
+		Optional<RoomEntity> dbRoom = this.roomRepo.findById(id);
+		if (dbRoom.isEmpty()) {
+			return null;
+		}
+
+		return dbRoom.get();
+	}
 }

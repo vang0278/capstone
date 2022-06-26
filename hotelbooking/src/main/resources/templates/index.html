@@ -10,16 +10,19 @@
 	<div th:replace="fragments/parts.html :: navbar"></div>
 
 	<div class="container px-5 my-5">
-		<form id="contactForm" th:action="@{/}" method=post th:object="${search}">
+		<form id="contactForm" th:action="@{/}" method=post
+			th:object="${search}">
 			<div class="form-floating mb-3">
-				<select class="form-select" id="occupancy" name="occupancy" th:field="*{occupancy}">
+				<select class="form-select" id="occupancy" name="occupancy"
+					th:field="*{occupancy}">
 					<option value="Any">Any</option>
 					<option value="Single">Single</option>
 					<option value="Double">Double</option>
 				</select> <label for="occupancy">Occupancy</label>
 			</div>
 			<div class="form-floating mb-3">
-				<select class="form-select" id="smoking" name="smoking" th:field="*{smoking}">
+				<select class="form-select" id="smoking" name="smoking"
+					th:field="*{smoking}">
 					<option value="Any">Any</option>
 					<option value="No">No</option>
 					<option value="Yes">Yes</option>
@@ -45,39 +48,45 @@
 			<tr th:each="building: ${buildings}">
 				<td th:text="${building.name}" />
 				<td th:text="${building.address}" />
-				<td th:if="${ignore_button}" ></td>
-				<td th:unless="${ignore_button}" ><a class="btn btn-primary" th:href='@{/show(occupancy=${search.occupancy},smoking=${search.smoking},id=${building.id})}'>Show Rooms</a></td>
+				<td th:if="${ignore_button}"></td>
+				<td th:unless="${ignore_button}"><a class="btn btn-primary"
+					th:href='@{/show(occupancy=${search.occupancy},smoking=${search.smoking},id=${building.id})}'>Show&nbsp;Rooms</a></td>
 			</tr>
 		</tbody>
 
 	</table>
-	
+
 	<div th:if="${viewBuilding}">
-	<br>
-	<h4 th:text="${viewBuilding.name}"></h4>
-	<p th:text="${viewBuilding.address}" />
+		<br>
+		<h4 th:text="${viewBuilding.name}"></h4>
+		<p th:text="${viewBuilding.address}" />
 		<table class="table table-striped table-hover table-sm table-light ">
-		<thead>
-			<tr>
-				<th>Room Number</th>
-				<th>Occupancy</th>
-				<th>Allow Smoking</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="room: ${rooms}">
-				<td th:text="${room.number}" />
+			<thead>
+				<tr>
+					<th>Room Number</th>
+					<th>Occupancy</th>
+					<th>Allow Smoking</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="room: ${rooms}">
+					<td th:text="${room.number}" />
 
-				<td th:if="${room.occupancy} != 1" th:text="Double" />
-				<td th:unless="${room.occupancy} != 1" th:text="Single" />
+					<td th:if="${room.occupancy} != 1" th:text="Double" />
+					<td th:unless="${room.occupancy} != 1" th:text="Single" />
 
-				<td th:if="${room.smoking} == true" th:text="Yes" />
-				<td th:unless="${room.smoking} == true" th:text="No" />
-			</tr>
-		</tbody>
+					<td th:if="${room.smoking} == true" th:text="Yes" />
+					<td th:unless="${room.smoking} == true" th:text="No" />
 
-	</table>
+					<td th:unless="${ROLE_USER}"></td>
+					<td th:if="${ROLE_USER}"><a class="btn btn-primary"
+					th:href='@{/user/book(room=${room.id},building=${viewBuilding.id})}'>Book&nbsp;Rooms</a>
+
+				</tr>
+			</tbody>
+
+		</table>
 	</div>
 
 	<script th:replace="fragments/parts.html :: bootstrap_script"></script>

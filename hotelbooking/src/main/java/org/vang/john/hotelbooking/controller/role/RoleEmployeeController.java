@@ -12,12 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
-import org.vang.john.hotelbooking.dto.SearchBuildingDTO;
 import org.vang.john.hotelbooking.dto.SearchUserDTO;
 import org.vang.john.hotelbooking.entity.UserEntity;
-import org.vang.john.hotelbooking.repository.UserRepository;
 import org.vang.john.hotelbooking.service.role.RoleEmployeeService;
-import org.vang.john.hotelbooking.service.role.RoleUserService;
 
 @Controller
 @RequestMapping("/employee")

@@ -11,5 +11,7 @@ public interface RoomService {
 	RoomEntity save(RoomEntity room);
 
 	RoomEntity update(RoomEntity room);
+	
+	RoomEntity findRoom(Long id);
 
 }

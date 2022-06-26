@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.vang.john.hotelbooking.entity.BuildingEntity;
 import org.vang.john.hotelbooking.entity.RoomEntity;
 import org.vang.john.hotelbooking.repository.BuildingRepository;
-import org.vang.john.hotelbooking.repository.RoomRepository;
 
 @Service
 public class BuildingServiceImpl implements BuildingService {
@@ -71,7 +70,7 @@ public class BuildingServiceImpl implements BuildingService {
 	public Optional<BuildingEntity> findById(Long id) {
 		return this.buildingRepo.findById(id);
 	}
-	
+
 	@Override
 	public Optional<BuildingEntity> findByName(String name) {
 		return this.buildingRepo.findByName(name);
