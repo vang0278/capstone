@@ -10,7 +10,7 @@ import org.vang.john.hotelbooking.entity.RoomEntity;
 @Repository
 public interface RoomRepository extends JpaRepository<RoomEntity, Long> {
 
-	Optional<RoomEntity> findByNumber(Long number);
+	List<RoomEntity> findAllByNumber(Long number);
 
 	List<RoomEntity> findAllBySmoking(Boolean smoking);
 
