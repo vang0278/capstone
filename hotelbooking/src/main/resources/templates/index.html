@@ -79,13 +79,13 @@
 					<td th:if="${room.smoking} == true" th:text="Yes" />
 					<td th:unless="${room.smoking} == true" th:text="No" />
 
-					<td>
-					<div th:if="${ROLE_USER}" th:with="avil=${reservation.isRoomAvailable(room.id)}">
+					<td th:with="avil=${reservation.isRoomAvailable(room.id)}">
+					<div th:if="${ROLE_USER}">
 					<a th:if="*{avil} == true" class="btn btn-primary"
 					th:href='@{/user/book(room=${room.id},building=${viewBuilding.id})}'>Book&nbsp;Room</a>
+					</div>
 					<a th:if="*{avil} != true" class="btn btn-secondary"
 					disabled>Unavailable</a>
-					</div>
 					</td>
 
 				</tr>

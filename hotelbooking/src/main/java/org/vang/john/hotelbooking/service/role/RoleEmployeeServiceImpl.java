@@ -79,4 +79,9 @@ public class RoleEmployeeServiceImpl implements RoleEmployeeService {
 		return this.userService.resetPassword(email);
 	}
 
+	@Override
+	public UserEntity getUser(String email) {
+		return this.userService.findByEmail(email);
+	}
+
 }

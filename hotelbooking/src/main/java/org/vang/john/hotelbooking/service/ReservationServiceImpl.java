@@ -1,5 +1,6 @@
 package org.vang.john.hotelbooking.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -32,9 +33,24 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public List<ReservationEntity> searchConfirmation(String txt) {
-		List<ReservationEntity> reservations = this.reservationRepo.findByIdContains(txt.toLowerCase());
+		List<ReservationEntity> reservations = this.reservationRepo.findAll();
+		List<ReservationEntity> found = new ArrayList<ReservationEntity>();
 
-		return reservations;
+		if (reservations == null) {
+			return found;
+		}
+
+		reservations.forEach(res -> {
+
+//			System.out.println(res.getConfirmation());
+
+			if (res.getConfirmation().contains(txt.toLowerCase())) {
+				found.add(res);
+				System.out.println("Confirmation found >" + txt + "< " + res.getConfirmation());
+			}
+		});
+
+		return found;
 	}
 
 	@Override

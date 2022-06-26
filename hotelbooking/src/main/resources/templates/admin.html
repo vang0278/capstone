@@ -80,7 +80,7 @@
 		<tbody>
 			<tr th:each="user: ${employees}">
 				<td><a class="btn btn-primary"
-					th:href="@{/admin/resetEmployeePassword(id=${user.id})}">reset&nbsp;password</a></td>
+					th:href="@{/admin/resetEmployeePassword(id=${user.id})}">Reset&nbsp;Password</a></td>
 				<td th:text="${user.id}" />
 				<td th:text="${user.role.name}" />
 				<td th:text="${user.lastName}" />

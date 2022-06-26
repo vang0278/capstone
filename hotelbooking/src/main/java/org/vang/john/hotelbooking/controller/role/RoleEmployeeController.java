@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 import org.vang.john.hotelbooking.dto.SearchUserDTO;
+import org.vang.john.hotelbooking.entity.ReservationEntity;
 import org.vang.john.hotelbooking.entity.UserEntity;
+import org.vang.john.hotelbooking.service.ReservationService;
 import org.vang.john.hotelbooking.service.role.RoleEmployeeService;
 
 @Controller
@@ -22,6 +24,9 @@ public class RoleEmployeeController {
 
 	@Autowired
 	private RoleEmployeeService roleEmployeeService;
+
+	@Autowired
+	private ReservationService reservationService;
 
 	@ModelAttribute("search")
 	public SearchUserDTO searchUserDTO() {
@@ -45,12 +50,18 @@ public class RoleEmployeeController {
 
 		model.addAttribute("foundUsers", foundUsers);
 
+		List<ReservationEntity> foundReservations = this.reservationService.searchConfirmation(search.getSearch());
+		model.addAttribute("foundReservations", foundReservations);
+		
 		return "employee";
 	}
 
-	@GetMapping("/resetUserPassword")
-	public RedirectView resetEmployeePassword(RedirectAttributes redirectAttributes, //
+	@PostMapping("/resetUserPassword")
+	public RedirectView resetUserPassword(RedirectAttributes redirectAttributes, //
+			@ModelAttribute("search") SearchUserDTO search, //
 			@RequestParam String email) {
+
+		redirectAttributes.addFlashAttribute("search", search);
 		String redirectPath = "/employee?success";
 
 		String newPassword = this.roleEmployeeService.resetUserPassword(email);
@@ -63,6 +74,26 @@ public class RoleEmployeeController {
 			String msg = "Password reset User: " + email + "<br>Password: " + newPassword;
 			redirectAttributes.addFlashAttribute("success_msg", msg);
 		}
+
+		RedirectView redirectView = new RedirectView(redirectPath, true);
+
+		return redirectView;
+	}
+
+	@PostMapping("/viewUserReservations")
+	public RedirectView viewUserReservations(RedirectAttributes redirectAttributes, //
+			@ModelAttribute("search") SearchUserDTO search, //
+			@RequestParam String email) {
+
+		redirectAttributes.addFlashAttribute("search", search);
+
+		UserEntity user = this.roleEmployeeService.getUser(email);
+		redirectAttributes.addFlashAttribute("user", user);
+
+		List<ReservationEntity> reservations = this.reservationService.getReservations(user);
+		redirectAttributes.addFlashAttribute("reservations", reservations);
+
+		String redirectPath = "/employee";
 
 		RedirectView redirectView = new RedirectView(redirectPath, true);
 
