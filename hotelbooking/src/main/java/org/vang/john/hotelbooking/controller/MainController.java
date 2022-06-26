@@ -15,12 +15,16 @@ import org.vang.john.hotelbooking.entity.BuildingEntity;
 import org.vang.john.hotelbooking.entity.RoomEntity;
 import org.vang.john.hotelbooking.exception.UnknownUserRoleException;
 import org.vang.john.hotelbooking.service.BuildingService;
+import org.vang.john.hotelbooking.service.ReservationService;
 
 @Controller
 public class MainController {
 
 	@Autowired
 	private BuildingService buildingService;
+
+	@Autowired
+	private ReservationService reservationService;
 
 	@ModelAttribute("search")
 	public SearchBuildingDTO searchBuildingDTO() {
@@ -36,7 +40,7 @@ public class MainController {
 	}
 
 	@PostMapping("/")
-	public String checkAvailability(Model model, // 
+	public String checkAvailability(Model model, //
 			@ModelAttribute("search") SearchBuildingDTO search) {
 		boolean _smoking = search.isYesSmoking();
 		long _occupancy = search.isDoubleOccupancy() ? 2 : 1;
@@ -93,6 +97,8 @@ public class MainController {
 
 		model.addAttribute("viewBuilding", dbBuilding.get());
 		model.addAttribute("rooms", rooms);
+
+		model.addAttribute("reservation", this.reservationService);
 
 		return "index";
 	}

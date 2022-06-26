@@ -124,7 +124,7 @@
 					<td>
 						<div th:if="${res.active}==true">
 							<a th:if="${res.status} == 'BOOKED'" class="btn btn-primary"
-								th:href="@{/user/cancel(confirmation=${res.id})}">Cancel</a>
+								th:href="@{/user/cancel(confirmation=${res.id})}">Cancel Booking</a>
 							<a th:if="${res.status} == 'CHECKEDIN'" class="btn btn-primary"
 								th:href="@{/user/checkOut(confirmation=${res.id})}">Checkout</a>
 						</div>
